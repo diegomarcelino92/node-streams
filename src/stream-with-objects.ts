@@ -12,11 +12,9 @@ class Pipe1 extends Readable {
     super({ objectMode: true });
   }
 
-  _read() {}
-
-  async start() {
+  async _read() {
     for (const item of list) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       this.push(item);
     }
 
@@ -56,5 +54,5 @@ const pipe3 = new Pipe3();
 pipe1.pipe(pipe2).pipe(pipe3);
 
 console.time("time");
-pipe1.start();
+pipe1.read();
 pipe1.on("end", () => console.timeEnd("time"));
